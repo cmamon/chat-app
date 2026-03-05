@@ -7,10 +7,14 @@ import {
   ConnectedSocket,
   MessageBody,
 } from '@nestjs/websockets';
+import { Inject } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { Logger } from '@app/logger';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { CHAT_SERVICE } from '@app/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
 
 @WebSocketGateway({
   cors: {
@@ -25,6 +29,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly logger: Logger,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    @Inject(CHAT_SERVICE) private readonly chatClient: ClientProxy,
   ) {}
 
   async handleConnection(@ConnectedSocket() client: Socket) {
@@ -82,22 +87,34 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('send_message')
-  async handleMessage(@ConnectedSocket() client: Socket, @MessageBody() payload: { roomId: string; content: string }) {
-    const { roomId, content } = payload;
+  async handleMessage(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() payload: { roomId: string; content: string; clientMsgId?: string },
+  ) {
+    const { roomId, content, clientMsgId } = payload;
 
-    const message = {
-      userId: client.data.userId,
-      username: client.data.username,
-      content,
-      roomId,
-      timestamp: new Date().toISOString(),
-    };
+    try {
+      // 1. Save message to database via chat-service
+      const savedMessage = await firstValueFrom(
+        this.chatClient.send('save_message', {
+          chatId: roomId,
+          authorId: client.data.userId,
+          content,
+        }),
+      );
 
-    // Broadcast message to the room
-    this.server.to(roomId).emit('new_message', message);
+      // 2. Broadcast the saved message to everyone in the room (including sender)
+      this.server.to(roomId).emit('new_message', {
+        ...savedMessage,
+        roomId, // Ensure roomId is present for frontend filtering
+        clientMsgId, // Return the clientMsgId if provided
+      });
 
-    this.logger.log(`Message in ${roomId} from ${client.data.username}`);
-
-    return { success: true };
+      this.logger.log(`Message in ${roomId} from ${client.data.username} saved and broadcasted`);
+      return { success: true, messageId: savedMessage.id, clientMsgId };
+    } catch (error) {
+      this.logger.error(`Failed to save message: ${error.message}`);
+      return { success: false, error: 'Could not save message' };
+    }
   }
 }

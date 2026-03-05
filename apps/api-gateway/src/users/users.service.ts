@@ -29,4 +29,46 @@ export class UsersService {
       data,
     });
   }
+
+  async update(id: string, data: any) {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async search(query: string, excludeUserId: string) {
+    return this.prisma.user.findMany({
+      where: {
+        AND: [
+          { id: { not: excludeUserId } },
+          {
+            OR: [
+              { username: { contains: query, mode: 'insensitive' } },
+              { email: { contains: query, mode: 'insensitive' } },
+            ],
+          },
+        ],
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        avatarUrl: true,
+      },
+      take: 20,
+    });
+  }
+
+  async findByIds(ids: string[]) {
+    return this.prisma.user.findMany({
+      where: { id: { in: ids } },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        avatarUrl: true,
+      },
+    });
+  }
 }

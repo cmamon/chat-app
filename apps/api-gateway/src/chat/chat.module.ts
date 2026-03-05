@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CHAT_SERVICE } from '@app/common';
-import { ChatController } from './chat.controller';
+import { ChatsController } from './chats.controller';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { ChatController } from './chat.controller';
       },
     ]),
   ],
-  controllers: [ChatController],
+  controllers: [ChatsController],
   exports: [ClientsModule],
 })
 export class ChatModule {}

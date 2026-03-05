@@ -1,0 +1,11 @@
+{
+  "errorNetwork": "No internet connection. Please check your network.",
+  "errorUnauthorized": "Session expired. Please sign in again.",
+  "errorServer": "Server error. Please try again later.",
+  "errorTimeout": "The request timed out.",
+  "errorBadRequest": "Invalid request.",
+  "errorUnknown": "An unexpected error occurred.",
+  "offlineMessage": "You are offline. Some features may be limited.",
+  "connectionRestored": "Connection restored.",
+  "retry": "Retry"
+}

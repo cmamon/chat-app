@@ -1,0 +1,17 @@
+{
+  "onlineStatus": "En ligne",
+  "typeMessage": "Écrivez un message...",
+  "failedToLoadMessages": "Échec du chargement des messages",
+  "failedToSendMessage": "Échec de l'envoi du message",
+  "noMessagesYet": "Pas encore de messages",
+  "searchConversations": "Rechercher des conversations...",
+  "newMessage": "Nouveau Message",
+  "searchUsersPlaceholder": "Rechercher par pseudo ou email...",
+  "searchEmptyState": "Recherchez des personnes pour discuter",
+  "searchError": "Erreur de recherche d'utilisateur",
+  "createChatError": "Échec de création du chat",
+  "newGroup": "Nouveau Groupe",
+  "createGroup": "Créer un groupe",
+  "groupName": "Nom du groupe",
+  "cancel": "Annuler"
+}

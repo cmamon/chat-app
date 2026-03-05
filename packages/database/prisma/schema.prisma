@@ -11,18 +11,21 @@ model User {
   email     String    @unique
   username  String    @unique
   password  String
-  rooms     Room[]    @relation("RoomParticipants")
+  chats     Chat[]    @relation("ChatParticipants")
   messages  Message[]
+  firstName String?
+  lastName  String?
+  avatarUrl String?
   isActive  Boolean   @default(true)
   lastLogin DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
-model Room {
+model Chat {
   id           String    @id @default(uuid())
   name         String?
-  participants User[]    @relation("RoomParticipants")
+  participants User[]    @relation("ChatParticipants")
   messages     Message[]
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -33,7 +36,7 @@ model Message {
   content   String
   authorId  String
   author    User     @relation(fields: [authorId], references: [id])
-  roomId    String
-  room      Room     @relation(fields: [roomId], references: [id])
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
 }

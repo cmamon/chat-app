@@ -1,0 +1,17 @@
+{
+  "onlineStatus": "Online",
+  "typeMessage": "Type a message...",
+  "failedToLoadMessages": "Failed to load messages",
+  "failedToSendMessage": "Failed to send message",
+  "noMessagesYet": "No messages yet",
+  "searchConversations": "Search conversations...",
+  "newMessage": "New Message",
+  "searchUsersPlaceholder": "Search by username or email...",
+  "searchEmptyState": "Search for people to start a chat",
+  "searchError": "User search failed",
+  "createChatError": "Failed to create chat",
+  "newGroup": "New Group",
+  "createGroup": "Create Group",
+  "groupName": "Group Name",
+  "cancel": "Cancel"
+}

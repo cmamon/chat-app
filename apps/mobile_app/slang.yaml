@@ -1,0 +1,12 @@
+base_locale: en
+fallback_strategy: base_locale
+input_directory: lib/l10n/views
+input_file_pattern: .json
+output_directory: lib/l10n/generated
+output_file_name: translations.g.dart
+namespaces: true
+# Keep it simple for now
+# We will use the file name as the namespace name
+# e.g. auth_en.json -> t.auth.xxx
+# Actually, slang's default logic for namespace is to take the part before the locale
+# So auth_en.json -> namespace is "auth"

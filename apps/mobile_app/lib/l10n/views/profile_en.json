@@ -1,0 +1,11 @@
+{
+  "profileTitle": "My Profile",
+  "editProfile": "Edit Profile",
+  "personalInfo": "Personal Information",
+  "username": "Username",
+  "email": "Email Address",
+  "logout": "Logout",
+  "logoutConfirm": "Are you sure you want to logout?",
+  "saveChanges": "Save Changes",
+  "cancel": "Cancel"
+}

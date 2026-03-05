@@ -1,0 +1,9 @@
+{
+  "appTitle": "Kora Chat",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "landingTagline": "Your premium space for seamless\nprofessional communication.",
+  "createAccount": "Create Account",
+  "alreadyHaveAccount": "I already have an account"
+}

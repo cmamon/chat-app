@@ -29,8 +29,8 @@ import { ChatModule } from './chat/chat.module';
     AuthModule,
     ChatModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/test-client',
+      rootPath: join(__dirname, '..', 'public/uploads/avatars'),
+      serveRoot: '/uploads',
     }),
   ],
   controllers: [HealthController],

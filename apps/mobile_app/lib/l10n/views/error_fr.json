@@ -1,0 +1,11 @@
+{
+  "errorNetwork": "Pas de connexion internet. Veuillez vérifier votre réseau.",
+  "errorUnauthorized": "Session expirée. Veuillez vous reconnecter.",
+  "errorServer": "Erreur serveur. Veuillez réessayer plus tard.",
+  "errorTimeout": "Le délai d'attente a expiré.",
+  "errorBadRequest": "Requête invalide.",
+  "errorUnknown": "Une erreur inattendue est survenue.",
+  "offlineMessage": "Vous êtes hors ligne. Certaines fonctionnalités peuvent être limitées.",
+  "connectionRestored": "Connexion rétablie.",
+  "retry": "Réessayer"
+}

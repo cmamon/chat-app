@@ -1,4 +1,4 @@
-# Architecture Microservices Chat - NestJS (Monorepo pnpm)
+# Chat - NestJS (Monorepo pnpm)
 
 [![CI](https://github.com/cmamon/chat-api/actions/workflows/ci.yml/badge.svg)](https://github.com/cmamon/chat-api/actions/workflows/ci.yml)
 

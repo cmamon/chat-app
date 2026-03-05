@@ -1,0 +1,11 @@
+{
+  "profileTitle": "Mon Profil",
+  "editProfile": "Modifier le Profil",
+  "personalInfo": "Informations Personnelles",
+  "username": "Nom d'utilisateur",
+  "email": "Adresse Email",
+  "logout": "Se déconnecter",
+  "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "saveChanges": "Enregistrer les modifications",
+  "cancel": "Annuler"
+}

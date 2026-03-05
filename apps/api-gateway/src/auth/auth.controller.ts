@@ -118,6 +118,10 @@ export class AuthController {
 
   @Get('me')
   async getProfile(@CurrentUser() user: JwtUser) {
-    return user;
+    return {
+      id: user.userId,
+      email: user.email,
+      username: user.username,
+    };
   }
 }
