@@ -4,11 +4,14 @@
 
 ## 📋 Vue d'ensemble
 
-Cette documentation décrit l'architecture complète d'une application de chat professionnel basée sur NestJS avec une approche microservices dans un monorepo géré par pnpm.
+![Capture d'écran de l'application](assets/chat_app_screenshot.png)
+
+Cette documentation décrit l'architecture complète d'une application de chat professionnel full-stack. Elle inclut un backend basé sur NestJS avec une approche microservices, ainsi qu'un client multi-plateforme développé avec Flutter (Web/Mobile), le tout organisé dans un monorepo géré par pnpm.
 
 ### Stack Technologique
 
-- **Framework**: NestJS
+- **Frontend**: Flutter / Dart
+- **Backend Framework**: NestJS
 - **Package Manager**: pnpm (avec workspaces)
 - **Architecture**: Monorepo Turborepo
 - **Communication**: NATS (message broker)
@@ -24,33 +27,37 @@ Cette documentation décrit l'architecture complète d'une application de chat p
 ## 🏗️ Architecture Générale
 
 ```
-┌─────────────┐
-│   Traefik   │ (Reverse Proxy / Load Balancer)
-└──────┬──────┘
-       │
-       ├─────────────────┬──────────────────┬─────────────────┐
-       │                 │                  │                 │
-┌──────▼──────┐   ┌─────▼──────┐   ┌──────▼──────┐   ┌─────▼──────┐
-│ API Gateway │   │  WebSocket │   │ Prometheus  │   │  Grafana   │
-│             │   │   Gateway  │   │             │   │            │
-└──────┬──────┘   └─────┬──────┘   └─────────────┘   └────────────┘
-       │                │
-       │         ┌──────▼──────────────────┐
-       │         │                         │
-       └─────────┤      NATS Broker        │
-                 │                         │
-                 └──┬──────────────┬───────┘
-                    │              │
-            ┌───────▼──────┐  ┌───▼──────────┐
-            │ Chat Service │  │   Presence   │
-            │              │  │   Service    │
-            └───────┬──────┘  └───┬──────────┘
-                    │              │
-            ┌───────▼──────────────▼───────┐
-            │                              │
-            │    PostgreSQL     Redis      │
-            │                              │
-            └──────────────────────────────┘
+   ┌───────────────────────┐
+   │  Client Flutter App   │ (Web, iOS, Android)
+   └───────────┬───────────┘
+               │ HTTP & WebSocket
+   ┌───────────▼───────────┐
+   │        Traefik        │ (Reverse Proxy / Load Balancer)
+   └───────────┬───────────┘
+               │
+       ┌───────┴─────────┬─────────────────┬─────────────────┐
+       │                 │                 │                 │
+┌──────▼──────┐   ┌──────▼──────┐   ┌──────▼──────┐   ┌──────▼──────┐
+│ API Gateway │   │  WebSocket  │   │ Prometheus  │   │   Grafana   │
+│             │   │   Gateway   │   │             │   │             │
+└──────┬──────┘   └──────┬──────┘   └─────────────┘   └─────────────┘
+       │                 │
+       │         ┌───────▼──────────────────┐
+       │         │                          │
+       └─────────┤       NATS Broker        │
+                 │                          │
+                 └───┬────────────────┬─────┘
+                     │                │
+              ┌──────▼──────┐  ┌──────▼──────┐
+              │Chat Service │  │  Presence   │
+              │             │  │   Service   │
+              └──────┬──────┘  └──────┬──────┘
+                     │                │
+              ┌──────▼────────────────▼──────┐
+              │                              │
+              │    PostgreSQL     Redis      │
+              │                              │
+              └──────────────────────────────┘
 ```
 
 ---
@@ -73,7 +80,8 @@ chat-microservices/                    # ROOT du monorepo
 ├── .gitignore
 ├── README.md
 │
-├── apps/                             # Applications (microservices)
+├── apps/                             # Applications (frontend & microservices)
+│   ├── mobile_app/                   # Application cliente Flutter (Mobile & Web)
 │   ├── api-gateway/
 │   │   ├── src/
 │   │   │   ├── main.ts
@@ -1153,6 +1161,10 @@ pnpm run dev:presence   # Presence Service
 # Note : Assurez-vous que PostgreSQL, Redis et NATS tournent localement
 # ou via Docker :
 docker-compose up -d postgres redis nats
+
+# Option 3 : Lancer l'application cliente Flutter
+cd apps/mobile_app
+flutter run -d chrome
 ```
 
 ### Développement avec Docker
